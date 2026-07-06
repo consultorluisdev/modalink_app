@@ -5,13 +5,13 @@ interface ContainerProps extends ViewProps {
 }
 
 export function Container({
-  padded: _padded = true,
+  padded = true,
   className = '',
   children,
   ...props
 }: ContainerProps) {
   return (
-    <View className={className} {...props}>
+    <View className={`flex-1 ${padded ? 'px-4' : ''} ${className}`} {...props}>
       {children}
     </View>
   );

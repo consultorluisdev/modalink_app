@@ -7,7 +7,14 @@ module.exports = tseslint.config(
   ...tseslint.configs.recommended,
   prettier,
   {
-    ignores: ['node_modules/**', 'dist/**', '.expo/**'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      '.expo/**',
+      'eslint.config.js',
+      'metro.config.js',
+      'tailwind.config.js',
+    ],
   },
   {
     rules: {

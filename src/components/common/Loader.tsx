@@ -9,14 +9,24 @@ interface LoaderProps extends ViewProps {
 export function Loader({
   size = 'large',
   message,
-  fullScreen: _fullScreen = false,
+  fullScreen = false,
   className = '',
   ...props
 }: LoaderProps) {
-  return (
-    <View className={className} {...props}>
-      <ActivityIndicator size={size} />
-      {message && <Text>{message}</Text>}
+  const content = (
+    <View className={`items-center justify-center ${className}`} {...props}>
+      <ActivityIndicator size={size} color="#6C3EF4" />
+      {message && <Text className="mt-3 text-neutral-600">{message}</Text>}
     </View>
   );
+
+  if (fullScreen) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
+        {content}
+      </View>
+    );
+  }
+
+  return content;
 }

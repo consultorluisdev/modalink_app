@@ -8,7 +8,7 @@ interface ScreenProps extends ViewProps {
 
 export function Screen({
   scroll = false,
-  padded: _padded = true,
+  padded = true,
   className = '',
   children,
   ...props
@@ -17,8 +17,8 @@ export function Screen({
 
   const content = (
     <View
-      style={{ paddingTop: insets.top }}
-      className={className}
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+      className={`flex-1 ${padded ? 'px-4' : ''} ${className}`}
       {...props}
     >
       {children}

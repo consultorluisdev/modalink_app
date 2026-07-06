@@ -1,9 +1,9 @@
-import { Text, View } from 'react-native';
+import { Redirect } from 'expo-router';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function HomeScreen() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-bold text-brand-500">ModaLink</Text>
-    </View>
-  );
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) return <Redirect href="/login" />;
+  return <Redirect href="/catalog" />;
 }
