@@ -69,15 +69,132 @@ const LoginScreen = () => {
             <View style={StyleSheet.inputContainer}>
               <Text styles={styles.label}>Senha</Text>
               <TextInput
-              style={styles.in}
+              style={styles.input}
+              placeholder='.......'
+              placeholderTextColor="#999"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry />
             </View>
+
+            <TouchableOpacity
+            style={styles.loginButton}
+            onPress={handleLogin}
+            disabled={isLoading}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#fff" />
+
+              ): (
+                <Text style={styles.loginButtonText}>Entrar</Text>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+            style={StyleSheet.registerLinkText}>
+              Não tem uma conta? <Text style={styles.registerLinkText}>Criar conta
+
+              </Text>
+            </TouchableOpacity>
           </View>
-
         </View>
-
       </View>
 
-
     </KeyboardAvoidingView>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 30,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  iconContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#1e1b4b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  icon: {
+    fontSize: 40,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#1e1b4b',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 8,
+  },
+  form: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  inputContainer: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 6,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    fontSize: 16,
+    backgroundColor: '#fafafa',
+  },
+  loginButton: {
+    backgroundColor: '#1a1a1a',
+    borderRadius: 8,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  loginButtonText:{
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  registerLink: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  registerLinkText: {
+    fontSize: 14,
+    color: '#666',
+  },
+  registerLinkHighlight: {
+    color: '#1e1b4b',
+    fontWeight: 'bold',
+  },
+});
+
+export default LoginScreen;
