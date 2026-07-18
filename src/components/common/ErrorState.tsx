@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, ViewProps } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors } from '@/theme/colors';
 
-interface ErrorStateProps extends ViewProps {
+interface ErrorStateProps {
   title?: string;
   message?: string;
   onRetry?: () => void;
@@ -12,18 +13,45 @@ export function ErrorState({
   message = 'Tente novamente mais tarde.',
   onRetry,
   retryLabel = 'Tentar novamente',
-  className = '',
-  ...props
 }: ErrorStateProps) {
   return (
-    <View className={`items-center justify-center p-8 ${className}`} {...props}>
-      <Text className="text-lg font-semibold text-neutral-800 mb-2">{title}</Text>
-      <Text className="text-neutral-600 text-center mb-4">{message}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.message}>{message}</Text>
       {onRetry && (
-        <TouchableOpacity onPress={onRetry} className="bg-brand-500 rounded-lg px-6 py-3">
-          <Text className="text-white font-semibold">{retryLabel}</Text>
+        <TouchableOpacity onPress={onRetry} style={styles.button}>
+          <Text style={styles.buttonText}>{retryLabel}</Text>
         </TouchableOpacity>
       )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 32,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.neutral[800],
+    marginBottom: 8,
+  },
+  message: {
+    color: colors.neutral[500],
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  button: {
+    backgroundColor: colors.primary[500],
+    borderRadius: 12,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+  },
+  buttonText: {
+    color: colors.white,
+    fontWeight: '600',
+  },
+});

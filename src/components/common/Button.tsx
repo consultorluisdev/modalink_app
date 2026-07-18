@@ -1,9 +1,5 @@
-import {
-  TouchableOpacity,
-  Text,
-  ActivityIndicator,
-  TouchableOpacityProps,
-} from 'react-native';
+import { TouchableOpacity, Text, ActivityIndicator, TouchableOpacityProps, StyleSheet } from 'react-native';
+import { colors } from '@/theme/colors';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
@@ -12,46 +8,61 @@ interface ButtonProps extends TouchableOpacityProps {
   loading?: boolean;
 }
 
-const variantStyles: Record<string, string> = {
-  primary: 'bg-brand-500',
-  secondary: 'bg-neutral-800',
-  outline: 'border border-brand-500 bg-transparent',
-  ghost: 'bg-transparent',
+const variantBg = {
+  primary: colors.primary[500],
+  secondary: colors.neutral[800],
+  outline: 'transparent',
+  ghost: 'transparent',
 };
 
-const variantTextStyles: Record<string, string> = {
-  primary: 'text-white',
-  secondary: 'text-white',
-  outline: 'text-brand-500',
-  ghost: 'text-brand-500',
+const variantText = {
+  primary: colors.white,
+  secondary: colors.white,
+  outline: colors.primary[500],
+  ghost: colors.primary[500],
 };
 
-const sizeStyles: Record<string, string> = {
-  sm: 'px-4 py-2',
-  md: 'px-6 py-3',
-  lg: 'px-8 py-4',
+const sizeMap = {
+  sm: { paddingHorizontal: 16, paddingVertical: 8 },
+  md: { paddingHorizontal: 24, paddingVertical: 14 },
+  lg: { paddingHorizontal: 32, paddingVertical: 16 },
 };
 
-export function Button({
-  title,
-  variant = 'primary',
-  size = 'md',
-  loading = false,
-  disabled,
-  className = '',
-  ...props
-}: ButtonProps) {
+export function Button({ title, variant = 'primary', size = 'md', loading = false, disabled, style, ...props }: ButtonProps) {
+  const isLoading = disabled || loading;
+
   return (
     <TouchableOpacity
-      disabled={disabled || loading}
-      className={`items-center justify-center rounded-lg ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      disabled={isLoading}
+      style={[
+        styles.base,
+        { backgroundColor: variantBg[variant] },
+        variant === 'outline' ? { borderWidth: 1, borderColor: colors.primary[500] } : undefined,
+        sizeMap[size],
+        isLoading && styles.disabled,
+        style,
+      ]}
       {...props}
     >
       {loading ? (
-        <ActivityIndicator size="small" color={variant === 'outline' || variant === 'ghost' ? '#6C3EF4' : '#fff'} />
+        <ActivityIndicator size="small" color={variant === 'outline' || variant === 'ghost' ? colors.primary[500] : colors.white} />
       ) : (
-        <Text className={`font-semibold ${variantTextStyles[variant]}`}>{title}</Text>
+        <Text style={[styles.text, { color: variantText[variant] }]}>{title}</Text>
       )}
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  base: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+  },
+  text: {
+    fontWeight: '600',
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+});

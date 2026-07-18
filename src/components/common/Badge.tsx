@@ -1,4 +1,5 @@
-import { View, Text, ViewProps } from 'react-native';
+import { View, Text, ViewProps, StyleSheet } from 'react-native';
+import { colors } from '@/theme/colors';
 
 interface BadgeProps extends ViewProps {
   label: string;
@@ -6,37 +7,53 @@ interface BadgeProps extends ViewProps {
   size?: 'sm' | 'md';
 }
 
-const variantStyles: Record<string, string> = {
-  default: 'bg-neutral-200',
-  success: 'bg-green-100',
-  warning: 'bg-yellow-100',
-  error: 'bg-red-100',
-  info: 'bg-blue-100',
+const variantBg = {
+  default: colors.neutral[100],
+  success: '#DCFCE7',
+  warning: '#FEF9C3',
+  error: '#FEE2E2',
+  info: '#DBEAFE',
 };
 
-const variantTextStyles: Record<string, string> = {
-  default: 'text-neutral-700',
-  success: 'text-green-700',
-  warning: 'text-yellow-700',
-  error: 'text-red-700',
-  info: 'text-blue-700',
+const variantText = {
+  default: colors.neutral[600],
+  success: '#15803D',
+  warning: '#A16207',
+  error: '#DC2626',
+  info: '#2563EB',
 };
 
-const sizeStyles: Record<string, string> = {
-  sm: 'px-2 py-0.5',
-  md: 'px-3 py-1',
-};
-
-export function Badge({
-  label,
-  variant = 'default',
-  size = 'sm',
-  className = '',
-  ...props
-}: BadgeProps) {
+export function Badge({ label, variant = 'default', size = 'sm', style, ...props }: BadgeProps) {
   return (
-    <View className={`rounded-full ${variantStyles[variant]} ${sizeStyles[size]} ${className}`} {...props}>
-      <Text className={`text-xs font-medium ${variantTextStyles[variant]}`}>{label}</Text>
+    <View
+      style={[
+        styles.base,
+        { backgroundColor: variantBg[variant] },
+        size === 'md' ? styles.md : styles.sm,
+        style,
+      ]}
+      {...props}
+    >
+      <Text style={[styles.text, { color: variantText[variant] }]}>{label}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  base: {
+    borderRadius: 999,
+    alignSelf: 'flex-start',
+  },
+  sm: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+  md: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+  },
+  text: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+});

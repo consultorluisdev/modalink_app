@@ -5,5 +5,5 @@ export default function HomeScreen() {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) return <Redirect href="/login" />;
-  return <Redirect href="/catalog" />;
+  return <Redirect href="/dashboard" />;
 }

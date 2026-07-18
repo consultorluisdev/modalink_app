@@ -1,9 +1,24 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '@/theme/colors';
+import { typography } from '@/theme';
 
 export default function ExploreScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-lg text-neutral-600">Explore</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Explore</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.neutral[50],
+  },
+  text: {
+    fontSize: typography.fontSize.lg,
+    color: colors.neutral[500],
+  },
+});

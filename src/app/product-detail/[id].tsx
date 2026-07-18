@@ -1,18 +1,50 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { TouchableOpacity } from 'react-native';
+import { colors } from '@/theme/colors';
+import { typography } from '@/theme';
+
+const { fontSize, fontWeight } = typography;
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
 
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-bold mb-4">Produto #{id}</Text>
-      <Text className="text-neutral-600 mb-8">Detalhes do produto em breve</Text>
-      <TouchableOpacity onPress={() => router.back()} className="bg-brand-500 rounded-lg px-6 py-3">
-        <Text className="text-white font-semibold">Voltar</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Produto #{id}</Text>
+      <Text style={styles.subtitle}>Detalhes do produto em breve</Text>
+      <TouchableOpacity onPress={() => router.back()} style={styles.button}>
+        <Text style={styles.buttonText}>Voltar</Text>
       </TouchableOpacity>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.neutral[50],
+  },
+  title: {
+    fontSize: fontSize['2xl'],
+    fontWeight: fontWeight.bold,
+    color: colors.neutral[900],
+    marginBottom: 16,
+  },
+  subtitle: {
+    color: colors.neutral[500],
+    marginBottom: 32,
+  },
+  button: {
+    backgroundColor: colors.primary[500],
+    borderRadius: 12,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+  },
+  buttonText: {
+    color: colors.white,
+    fontWeight: '600',
+  },
+});

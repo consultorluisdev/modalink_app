@@ -1,5 +1,3 @@
-import '../global.css';
-
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -13,8 +11,8 @@ function RootLayoutInner() {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
-        <ActivityIndicator size="large" color="#6C3EF4" />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8FAFC' }}>
+        <ActivityIndicator size="large" color="#6D28FF" />
       </View>
     );
   }
@@ -24,6 +22,7 @@ function RootLayoutInner() {
       <Stack.Screen name="index" />
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="register" options={{ title: 'Criar Conta' }} />
+      <Stack.Screen name="dashboard" options={{ headerShown: false }} />
       <Stack.Screen name="catalog" options={{ title: 'Catálogo' }} />
       <Stack.Screen name="product-detail/[id]" options={{ title: 'Detalhes do Produto' }} />
     </Stack>

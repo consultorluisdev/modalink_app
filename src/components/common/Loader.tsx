@@ -1,4 +1,5 @@
-import { ActivityIndicator, View, Text, ViewProps } from 'react-native';
+import { ActivityIndicator, View, Text, ViewProps, StyleSheet } from 'react-native';
+import { colors } from '@/theme/colors';
 
 interface LoaderProps extends ViewProps {
   size?: 'small' | 'large';
@@ -6,27 +7,34 @@ interface LoaderProps extends ViewProps {
   fullScreen?: boolean;
 }
 
-export function Loader({
-  size = 'large',
-  message,
-  fullScreen = false,
-  className = '',
-  ...props
-}: LoaderProps) {
+export function Loader({ size = 'large', message, fullScreen = false, style, ...props }: LoaderProps) {
   const content = (
-    <View className={`items-center justify-center ${className}`} {...props}>
-      <ActivityIndicator size={size} color="#6C3EF4" />
-      {message && <Text className="mt-3 text-neutral-600">{message}</Text>}
+    <View style={[styles.center, style]} {...props}>
+      <ActivityIndicator size={size} color={colors.primary[500]} />
+      {message && <Text style={styles.message}>{message}</Text>}
     </View>
   );
 
   if (fullScreen) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
-        {content}
-      </View>
-    );
+    return <View style={styles.fullScreen}>{content}</View>;
   }
 
   return content;
 }
+
+const styles = StyleSheet.create({
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  message: {
+    marginTop: 12,
+    color: colors.neutral[500],
+  },
+  fullScreen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.neutral[50],
+  },
+});
