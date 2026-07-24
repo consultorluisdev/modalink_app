@@ -16,3 +16,21 @@ export interface BaseEntity {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ProductCategory {
+  id: string;
+  name: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  compareAtPrice?: number;
+  description?: string;
+  stock: number;
+  images?: string[];
+  category?: ProductCategory;
+  createdAt: string;
+  updatedAt: string;
+}
